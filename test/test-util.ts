@@ -15,7 +15,7 @@
  */
 import * as assert from 'assert';
 import * as path from 'path';
-import { accessSync, PathLike, readFileSync } from 'fs';
+import { PathLike } from 'fs';
 
 import {
   ConfigFile,
@@ -23,8 +23,6 @@ import {
   isYarnUsed,
   getPkgManagerCommand,
 } from '../src/util';
-
-import { withFixtures, Fixtures } from 'inline-fixtures';
 
 /**
  * Creates a fake promisified readFile function from a map
@@ -80,6 +78,7 @@ describe('util', () => {
     myMap.set(PATH_TO_CONFIG2, FAKE_CONFIG2);
     myMap.set(PATH_TO_CONFIG3, FAKE_CONFIG3);
 
+    // eslint-disable-next-line node/no-unsupported-features/node-builtins
     return assert.rejects(
       () => getTSConfig(FAKE_DIRECTORY, createFakeReadFilep(myMap)),
       Error,
@@ -159,6 +158,7 @@ describe('util', () => {
   it('function throws an error when reading a file that does not exist', () => {
     const myMap = new Map();
 
+    // eslint-disable-next-line node/no-unsupported-features/node-builtins
     return assert.rejects(
       () => getTSConfig(FAKE_DIRECTORY, createFakeReadFilep(myMap)),
       Error,

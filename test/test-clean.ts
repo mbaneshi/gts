@@ -35,6 +35,7 @@ describe('clean', () => {
   };
 
   it('should gracefully error if tsconfig is missing', () => {
+    // eslint-disable-next-line node/no-unsupported-features/node-builtins
     return assert.rejects(() =>
       withFixtures({}, async () => {
         await clean(OPTIONS);
@@ -60,6 +61,7 @@ describe('clean', () => {
   });
 
   it('should ensure that outDir is local to targetRoot', () => {
+    // eslint-disable-next-line node/no-unsupported-features/node-builtins
     return assert.rejects(() =>
       withFixtures(
         {

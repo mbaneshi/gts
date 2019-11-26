@@ -15,9 +15,8 @@
  */
 import * as fs from 'fs';
 import * as path from 'path';
-import { Configuration, Linter } from 'tslint';
 import * as ts from 'typescript';
-
+import { Linter } from 'eslint';
 import { Options } from './cli';
 
 /**

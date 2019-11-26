@@ -21,36 +21,8 @@ import * as diff from 'diff';
 import { Options } from './cli';
 import { createProgram } from './lint';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const PRETTIER_OPTIONS = require('../../prettier.config.js');
-
-export async function format(
-  options: Options,
-  files: string[] = [],
-  fix = false
-): Promise<boolean> {
-  if (options.dryRun && fix) {
-    options.logger.log('format: skipping auto fix since --dry-run was passed');
-    fix = false;
-  }
-
-  const program = createProgram(options);
-  // Obtain a list of source files to format.
-  // We use program.getRootFileNames to get only the files that match the
-  // include patterns specified in the given tsconfig.json file (as specified
-  // through options). This is necessary because we only want to format files
-  // over which the developer has control (i.e. not auto-generated or
-  // third-party source files).
-  const srcFiles =
-    files.length > 0
-      ? files
-      : program.getRootFileNames().filter(f => !f.endsWith('.d.ts'));
-
-  const result = await checkFormat(srcFiles, options, fix);
-  if (!result) {
-    options.logger.log('prettier reported errors... run `gts fix` to address.');
-  }
-  return result;
-}
 
 interface FileConfig {
   file: string;
@@ -105,4 +77,33 @@ async function checkFormat(srcFiles: string[], options: Options, fix: boolean) {
   });
 
   return checks.reduce((sum, flag) => sum && flag, true);
+}
+
+export async function format(
+  options: Options,
+  files: string[] = [],
+  fix = false
+): Promise<boolean> {
+  if (options.dryRun && fix) {
+    options.logger.log('format: skipping auto fix since --dry-run was passed');
+    fix = false;
+  }
+
+  const program = createProgram(options);
+  // Obtain a list of source files to format.
+  // We use program.getRootFileNames to get only the files that match the
+  // include patterns specified in the given tsconfig.json file (as specified
+  // through options). This is necessary because we only want to format files
+  // over which the developer has control (i.e. not auto-generated or
+  // third-party source files).
+  const srcFiles =
+    files.length > 0
+      ? files
+      : program.getRootFileNames().filter(f => !f.endsWith('.d.ts'));
+
+  const result = await checkFormat(srcFiles, options, fix);
+  if (!result) {
+    options.logger.log('prettier reported errors... run `gts fix` to address.');
+  }
+  return result;
 }

@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * Copyright 2017 Google Inc. All Rights Reserved.
  *
@@ -21,6 +20,7 @@ import { init } from './init';
 import { clean } from './clean';
 import { isYarnUsed } from './util';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require('../../package.json');
 
 export interface Logger {
@@ -108,10 +108,11 @@ async function run(verb: string, files: string[]): Promise<boolean> {
   const lint: VerbFilesFunction = require('./lint').lint;
   const format: VerbFilesFunction = require('./format').format;
   switch (verb) {
-    case 'check':
+    case 'check': {
       const passLint = await lint(options, files);
       const passFormat = await format(options, files);
       return passLint && passFormat;
+    }
     case 'fix':
       return (await lint(options, files, true)) && format(options, files, true);
     case 'clean':
@@ -130,6 +131,7 @@ if (cli.input.length < 1) {
 
 run(cli.input[0], cli.input.slice(1)).then(success => {
   if (!success) {
+    // eslint-disable-next-line no-process-exit
     process.exit(1);
   }
 });
