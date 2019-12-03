@@ -19,8 +19,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { Options } from '../src/cli';
-import * as format from '../src/format';
 import { nop } from '../src/util';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const format: any = {};
 
 import { withFixtures } from 'inline-fixtures';
 

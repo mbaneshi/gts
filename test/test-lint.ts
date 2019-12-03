@@ -20,11 +20,14 @@ import * as path from 'path';
 
 import { Options } from '../src/cli';
 import { TSLINT_CONFIG } from '../src/init';
-import * as lint from '../src/lint';
-import * as format from '../src/format';
 import { nop } from '../src/util';
 
 import { withFixtures } from 'inline-fixtures';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const format: any = {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const lint: any = {};
 
 describe('lint', () => {
   const OPTIONS: Options = {
