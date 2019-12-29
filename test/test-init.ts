@@ -20,10 +20,12 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as path from 'path';
 import { accessSync } from 'fs';
-import { nop, readJsonp as readJson, DefaultPackage } from '../src/util';
-import { Options } from '../src/cli';
 import { PackageJson } from '@npm/types';
 import { withFixtures, Fixtures } from 'inline-fixtures';
+import { describe, it, beforeEach, afterEach } from 'mocha';
+
+import { nop, readJsonp as readJson, DefaultPackage } from '../src/util';
+import { Options } from '../src/cli';
 import * as init from '../src/init';
 
 const OPTIONS: Options = {

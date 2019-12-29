@@ -4,6 +4,7 @@ import * as fs from 'fs-extra';
 import * as tmp from 'tmp';
 import * as assert from 'assert';
 import * as path from 'path';
+import { describe, it, before, after } from 'mocha';
 
 import spawn = require('cross-spawn');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -25,7 +26,6 @@ describe('🚰 kitchen sink', () => {
 
   // Create a staging directory with temp fixtures used to test on a fresh application.
   before(() => {
-    console.log('running before hook.');
     cp.execSync('npm pack');
     const tarball = `${pkg.name}-${pkg.version}.tgz`;
     fs.renameSync(tarball, 'gts.tgz');
@@ -33,8 +33,6 @@ describe('🚰 kitchen sink', () => {
     console.log('moving packed tar to ', targetPath);
     fs.moveSync('gts.tgz', targetPath);
     fs.copySync(fixturesPath, path.join(stagingPath, path.sep));
-    console.log(fs.readdirSync(stagingPath));
-    console.log(fs.readdirSync(path.join(stagingPath, 'kitchen')));
   });
   // CLEAN UP - remove the staging directory when done.
   after('cleanup staging', () => {

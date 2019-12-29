@@ -30,7 +30,8 @@
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/camelcase": "off",
         "node/no-missing-require": "off",
-        "no-dupe-class-members": "off"
+        "no-dupe-class-members": "off",
+        "node/shebang": "off"
       },
       "parserOptions": {
         "ecmaVersion": 2018,

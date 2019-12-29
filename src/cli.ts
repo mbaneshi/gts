@@ -109,7 +109,7 @@ async function run(verb: string, files: string[]): Promise<boolean> {
     return init(options);
   }
 
-  const flags = Object.assign({}, files);
+  const flags = Object.assign([], files);
   if (flags.length === 0) {
     flags.push('**/*.ts', '**/*.js');
   }
@@ -117,22 +117,30 @@ async function run(verb: string, files: string[]): Promise<boolean> {
   switch (verb) {
     case 'check': {
       try {
-        await execa('npx', ['eslint', ...flags], { stdio: 'inherit' });
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }
-    case 'fix':
-      const fixFlag = options.dryRun ? '--fix-dry-run' : '--fix';
-      try {
-        await execa('npx', ['eslint', fixFlag, ...flags], {
+        await execa('node', ['./node_modules/eslint/bin/eslint', ...flags], {
           stdio: 'inherit',
         });
         return true;
       } catch (e) {
         return false;
       }
+    }
+    case 'fix': {
+      const fixFlag = options.dryRun ? '--fix-dry-run' : '--fix';
+      try {
+        await execa(
+          'node',
+          ['./node_modules/eslint/bin/eslint', fixFlag, ...flags],
+          {
+            stdio: 'inherit',
+          }
+        );
+        return true;
+      } catch (e) {
+        console.error(e);
+        return false;
+      }
+    }
     case 'clean':
       return clean(options);
     default:

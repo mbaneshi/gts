@@ -16,7 +16,7 @@
 import * as assert from 'assert';
 import * as path from 'path';
 import { PathLike } from 'fs';
-
+import { describe, it } from 'mocha';
 import {
   ConfigFile,
   getTSConfig,

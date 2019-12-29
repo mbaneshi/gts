@@ -23,6 +23,7 @@ import { TSLINT_CONFIG } from '../src/init';
 import { nop } from '../src/util';
 
 import { withFixtures } from 'inline-fixtures';
+import { describe, it } from 'mocha';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const format: any = {};

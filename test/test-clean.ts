@@ -19,13 +19,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { clean } from '../src/clean';
-import { Options } from '../src/cli';
 import { nop } from '../src/util';
 
 import { withFixtures } from 'inline-fixtures';
+import { describe, it } from 'mocha';
 
 describe('clean', () => {
-  const OPTIONS: Options = {
+  const OPTIONS = {
     gtsRootDir: path.resolve(__dirname, '../..'),
     targetRootDir: './',
     dryRun: false,

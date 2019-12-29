@@ -25,6 +25,7 @@ import { nop } from '../src/util';
 const format: any = {};
 
 import { withFixtures } from 'inline-fixtures';
+import { describe, it } from 'mocha';
 
 describe('format', () => {
   const BAD_CODE = 'export const foo = [ "2" ];';

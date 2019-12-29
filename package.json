@@ -9,10 +9,7 @@
   },
   "files": [
     "CHANGELOG.md",
-    "LICENSE",
-    "README.md",
     "build/src",
-    "build/types",
     "build/template",
     "prettier.config.js",
     "tsconfig-google.json",
@@ -27,8 +24,10 @@
     "postcompile": "ncp template build/template",
     "lint": "eslint '**/*.ts'",
     "prepare": "npm run compile",
-    "test": "c8 mocha build/test",
+    "test": "c8 mocha build/test/test-*.js",
+    "system-test": "c8 mocha build/test/kitchen.js",
     "pretest": "npm run compile",
+    "presystem-test": "npm run compile",
     "license-check": "jsgl --local .",
     "fix": "eslint --fix '**/*.ts'"
   },
@@ -42,7 +41,6 @@
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
     "chalk": "^3.0.0",
-    "diff": "^4.0.1",
     "eslint": "^6.7.1",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-node": "^10.0.0",
@@ -59,7 +57,6 @@
   "devDependencies": {
     "@npm/types": "^1.0.1",
     "@types/cross-spawn": "^6.0.0",
-    "@types/diff": "^4.0.0",
     "@types/eslint": "^6.1.3",
     "@types/fs-extra": "^8.0.0",
     "@types/inquirer": "^6.0.0",
